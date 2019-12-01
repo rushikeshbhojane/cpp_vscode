@@ -1,21 +1,16 @@
 #include <vector>
 #include <algorithm>
+#include <iostream>
 using namespace std;
-void countConsecutiveOnes(int nextChar, int n,  int& count) {
-    if (n > 0) {
-        countConsecutiveOnes(0, n-1, count);
-        if (nextChar == 0) {
-            countConsecutiveOnes(1, n-1, count);
-        }
-    } else {
-        count++;
-    }
-}
+int fib[103] = {0, 1, 2, 0}, last  = 2;
 int countConsecutiveOnesAux(int n) {
-    int count = 0;
-    countConsecutiveOnes(0, n-1, count);
-    countConsecutiveOnes(1, n-1, count);
-    return count;
+    if (n > last) {
+        for (int i = last + 1; i <= n; i++) {
+            fib[i] = (fib[i-1] + fib[i-2]) %  1000000007;
+        }
+        last = n;
+    }
+    return fib[n];
 }
 int main() {
     // your code goes here
@@ -24,7 +19,7 @@ int main() {
     while(t--)  {
         int n;
         cin >> n;
-        cout << countConsecutiveOnesAux(n) << "\n";
+        cout << countConsecutiveOnesAux(n + 1) << "\n";
     }
     return 0;
 }
