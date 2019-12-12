@@ -77,41 +77,48 @@ struct Node
     Node* left, * right;
 }; */
 // Should return true if tree is Sum Tree, else false
-void isSumTreeHelper(Node* node, bool& sumTreeFlag) {
-    int leftSum = 0, rightSum = 0;
-    if (node != NULL && node -> left != NULL) {
-      leftSum =  (node -> left) -> data;
-      isSumTreeHelper(node -> left, sumTreeFlag);
+  bool isLeafNode (Node* root) {
+
+    if (root == NULL) {
+      return false;
+    }
+    if (root -> left == NULL && root -> right  == NULL) {
+        return true;
     }
 
-    if (node != NULL && node -> right != NULL) {
-      rightSum = (node -> right) -> data;
-      isSumTreeHelper(node -> right, sumTreeFlag);
-    }
+    return false;
+  }
 
-    if ( (leftSum || rightSum) &&  
-        ((leftSum + rightSum) != (node -> data) )) {
-        sumTreeFlag = false;
-    } 
-}
 
-bool isSumTree(Node* root)
-{
-     // Your code here
-    bool sumTreeFlag = true;
-    int leftSum = 0, rightSum = 0;
-    if (root != NULL && root -> left != NULL) {
-      leftSum =  (root -> left) -> data;
-      isSumTreeHelper(root -> left, sumTreeFlag);
-    }
+  bool isSumTree(Node* root)
+  {
+      // Your code here
+      int ls, rs;
+      if (root == NULL || isLeafNode(root)) {
+          return true;
+      }
+      
+      if( isSumTree(root->left) && isSumTree(root->right)) {
 
-    if (root != NULL && root -> right != NULL) {
-      rightSum =  (root -> right) -> data;
-      isSumTreeHelper(root -> right, sumTreeFlag);
-    }  
+        if (root -> left == NULL) {
+            ls = 0;
+        } else if (isLeafNode(root -> left)) {
+            ls = root -> left -> data;
+        } else {
+            ls = 2 * (root -> left -> data);
+        }
 
-    if ((leftSum + rightSum) != (root ->data)) {
-      sumTreeFlag = false;
-    }
-     return sumTreeFlag;
-}
+
+        if (root -> right == NULL) {
+            rs = 0;
+        } else if (isLeafNode(root -> right)) {
+            rs = root -> right -> data;
+        } else {
+            rs = 2 * (root -> right -> data);
+        }
+
+        return (root -> data == ls + rs);
+      }
+
+      return false;
+  }
