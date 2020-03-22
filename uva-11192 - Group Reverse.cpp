@@ -17,7 +17,7 @@ int main() {
         stringLength = strlen(inputString);
         for (int i = 0; i < stringLength; i+= groupLength)
         {
-            reverse(inputString + i, inputString + groupLength);
+            reverse(inputString + i, inputString + i + groupLength);
         }
         cout << inputString << "\n";
     }
