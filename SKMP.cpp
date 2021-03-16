@@ -6,31 +6,41 @@
 using namespace std;
 int main()
 {
-    string line;
-    getline(cin, line);
     int t;
-    sscanf(line.c_str(), "%d", &t);
+    cin >> t;
     while (t--)
     {
         string S, P;
-        getline(cin, S);
-        getline(cin, P);
+        cin >> S >> P;
+        bool isltP0Presnt = false;
 
         int count[26] = {0};
 
         for (char c: S) count[c - 'a']++;
-        for (char c: P) count[c - 'a']--;
+        for (int i = 0; i < P.size(); i++)
+        {
+            if (i != 0 && P[i] < P[i-1]) isltP0Presnt = true; 
+            count[P[i] - 'a']--;
+        }
+        
 
         string solnString  = "";
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i <= 25; i++)
         {
-            for (int j = 0; j < count[i]; j++) solnString += ('a' + i);
             if (P[0] == ('a' + i))
             {
-                solnString += P;
+                if (isltP0Presnt) {
+                    solnString += P;
+                    for (int j = 0; j < count[i]; j++) solnString += ('a' + i);
+                } else {
+                    for (int j = 0; j < count[i]; j++) solnString += ('a' + i);
+                    solnString += P;
+                }
+            } else {
+                    for (int j = 0; j < count[i]; j++) solnString += ('a' + i);
             }
         }
-        printf("%s\n", solnString.c_str());
+        cout << solnString << "\n";
     }
     
     return 0;
