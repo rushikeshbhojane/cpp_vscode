@@ -1,6 +1,19 @@
 {
     "files.associations": {
         "istream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "limits": "cpp",
+        "string": "cpp",
+        "iterator": "cpp",
+        "bitset": "cpp",
+        "sstream": "cpp",
+        "cmath": "cpp",
+        "*.tcc": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "ostream": "cpp",
+        "map": "cpp"
     }
 }
